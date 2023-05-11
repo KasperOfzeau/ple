@@ -15,7 +15,7 @@ include '../backend/database.php';
 	<link rel="stylesheet" href="../css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="../ajax/ajax.js"></script>
+	<script src="../ajax/admin.js"></script>
 </head>
 <body>
     <div class="container">
@@ -27,21 +27,14 @@ include '../backend/database.php';
 						<h2>Manage <b>Objectives</b></h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
-						<a href="JavaScript:void(0);" class="btn btn-danger" id="delete_multiple"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Objective</span></a>
 					</div>
                 </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-						<th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th>
-						<th>SL NO</th>
+						<th>ID</th>
                         <th>Title</th>
                         <th>Description</th>
 						<th>Thumbnail</th>
@@ -50,45 +43,37 @@ include '../backend/database.php';
                     </tr>
                 </thead>
 				<tbody>
-				
 				<?php
 				$result = mysqli_query($conn,"SELECT * FROM objectives");
-					$i=1;
-					while($row = mysqli_fetch_array($result)) {
+				$i=1;
+				while($row = mysqli_fetch_array($result)) {
 				?>
-				<tr id="<?php echo $row["id"]; ?>">
-				<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" class="user_checkbox" data-user-id="<?php echo $row["id"]; ?>">
-								<label for="checkbox2"></label>
-							</span>
+					<tr id="<?= $row["id"]; ?>">
+						<td><?= $i; ?></td>
+						<td><?= $row["title"]; ?></td>
+						<td><?= $row["description"]; ?></td>
+						<td><img src="../gfx/objectives/thumbnails/<?= $row["thumbnail"]; ?>" width="150px" height="auto"/></td>
+						<td><?= $row["end_time"]; ?></td>
+						<td>
+							<a href="#editEmployeeModal" class="edit" data-toggle="modal">
+								<i class="material-icons update" data-toggle="tooltip" 
+								data-id="<?= $row["id"]; ?>"
+								data-title = "<?= $row["title"]; ?>"
+								data-description = "<?= $row["description"]; ?>"
+								data-thumbnail = "<?= $row["thumbnail"]; ?>"
+								data-end_time = "<?= date('Y-m-d H:i:s', strtotime($row["end_time"])); ?>"
+								title="Edit">&#xE254;</i>
+							</a>
+							<a href="#deleteEmployeeModal" class="delete" data-id="<?= $row["id"]; ?>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" 
+							title="Delete">&#xE872;</i></a>
 						</td>
-					<td><?php echo $i; ?></td>
-					<td><?php echo $row["title"]; ?></td>
-					<td><?php echo $row["description"]; ?></td>
-					<td><?php echo $row["thumbnail"]; ?></td>
-					<td><?php echo $row["end_time"]; ?></td>
-					<td>
-						<a href="#editEmployeeModal" class="edit" data-toggle="modal">
-							<i class="material-icons update" data-toggle="tooltip" 
-							data-id="<?php echo $row["id"]; ?>"
-							data-name="<?php echo $row["title"]; ?>"
-							data-email="<?php echo $row["description"]; ?>"
-							data-phone="<?php echo $row["thumbnail"]; ?>"
-							data-city="<?php echo $row["end_time"]; ?>"
-							title="Edit">&#xE254;</i>
-						</a>
-						<a href="#deleteEmployeeModal" class="delete" data-id="<?php echo $row["id"]; ?>" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" 
-						 title="Delete">&#xE872;</i></a>
-                    </td>
-				</tr>
+					</tr>
 				<?php
 				$i++;
 				}
 				?>
 				</tbody>
 			</table>
-			
         </div>
     </div>
 	<!-- Add Modal HTML -->
@@ -133,30 +118,31 @@ include '../backend/database.php';
 			<div class="modal-content">
 				<form id="update_form">
 					<div class="modal-header">						
-						<h4 class="modal-title">Edit User</h4>
+						<h4 class="modal-title">Update Objective</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<input type="hidden" id="id_u" name="id" class="form-control" required>					
+						<input type="hidden" id="id_u" name="id" class="form-control" required>						
 						<div class="form-group">
-							<label>Name</label>
-							<input type="text" id="name_u" name="name" class="form-control" required>
+							<label>Title</label>
+							<input type="text" id="title_u" name="title" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>Email</label>
-							<input type="email" id="email_u" name="email" class="form-control" required>
+							<label>Description</label>
+							<textarea id="description_u" name="description" class="form-control" required></textarea>
 						</div>
 						<div class="form-group">
-							<label>PHONE</label>
-							<input type="phone" id="phone_u" name="phone" class="form-control" required>
+							<label>Thumbnail</label>
+							<img src="" id="thumbnail_img_u" width="150" height="auto">
+							<input type="file" id="thumbnail_u" name="thumbnail" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label>City</label>
-							<input type="city" id="city_u" name="city" class="form-control" required>
+							<label>End time</label>
+							<input type="datetime-local" id="end_time_u" name="end_time" class="form-control" required>
 						</div>					
 					</div>
 					<div class="modal-footer">
-					<input type="hidden" value="2" name="type">
+						<input type="hidden" value="2" name="type">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 						<button type="button" class="btn btn-info" id="update">Update</button>
 					</div>
@@ -187,6 +173,5 @@ include '../backend/database.php';
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>                                		                            
