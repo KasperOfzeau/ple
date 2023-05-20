@@ -8,7 +8,7 @@ $(document).on('click', '#btn-add', function(e) {
 	$.ajax({
 		data: formData,
 		type: "post",
-		url: host + "backend/save.php",
+		url: host + "backend/admin.php",
 		contentType: false,
 		processData: false,
 		success: function(dataResult) {
@@ -28,12 +28,14 @@ $(document).on('click','.update',function(e) {
 	let id = $(this).attr("data-id");
 	let title = $(this).attr("data-title");
 	let description = $(this).attr("data-description");
+	let instructions = $(this).attr("data-instructions");
 	let thumbnail = $(this).attr("data-thumbnail");
 	let end_time = $(this).attr("data-end_time");
 
 	$('#id_u').val(id);
 	$('#title_u').val(title);
 	$('#description_u').val(description);
+	$('#instructions_u').val(instructions);
 	$('#thumbnail_img_u').attr("src", "../gfx/objectives/thumbnails/" + thumbnail);
 	$('#end_time_u').val(end_time);
 });
@@ -45,7 +47,7 @@ $(document).on('click','#update',function(e) {
 	$.ajax({
 		data: formData,
 		type: "post",
-		url: host + "backend/save.php",
+		url: host + "backend/admin.php",
 		contentType: false,
 		processData: false,
 		success: function(dataResult){
@@ -70,7 +72,7 @@ $(document).on("click", ".delete", function() {
 
 $(document).on("click", "#delete", function() { 
 	$.ajax({
-		url: host + "backend/save.php",
+		url: host + "backend/admin.php",
 		type: "POST",
 		cache: false,
 		data:{

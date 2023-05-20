@@ -7,11 +7,12 @@ if(count($_POST) > 0){
 
 		$title = $_POST['title'];
 		$description = $_POST['description'];
+		$instructions = $_POST['instructions'];
 		$thumbnail = $_FILES['thumbnail']['name'];
 		$end_time = $_POST['end_time'];
 
-		$sql = "INSERT INTO `objectives`( `title`, `description`,`thumbnail`,`end_time`) 
-		VALUES ('$title','$description','$thumbnail','$end_time')";
+		$sql = "INSERT INTO `objectives`( `title`, `description`, `instructions`, `thumbnail`,`end_time`) 
+		VALUES ('$title','$description','$instructions','$thumbnail','$end_time')";
 		if (mysqli_query($conn, $sql)) {
 
 			$directory = "../gfx/objectives/thumbnails/";  // Specify the directory where you want to save the file
@@ -36,6 +37,7 @@ if (count($_POST) > 0) {
         $id = $_POST['id'];
         $title = $_POST['title'];
         $description = $_POST['description'];
+		$instructions = $_POST['instructions'];
         $end_time = $_POST['end_time'];
 
 		if(isset($_FILES['thumbnail']['name']) && $_FILES['thumbnail']['name'] != "") {
@@ -64,7 +66,7 @@ if (count($_POST) > 0) {
 								// New thumbnail image file uploaded and saved successfully
 
 								// Update the record in the database with the new information
-								$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `thumbnail`='$newThumbnail', `end_time`='$end_time' WHERE id = $id";
+								$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `instructions`='$instructions', `thumbnail`='$newThumbnail', `end_time`='$end_time' WHERE id = $id";
 			
 								if (mysqli_query($conn, $updateSql)) {
 									echo json_encode(array("statusCode" => 200));
@@ -90,7 +92,7 @@ if (count($_POST) > 0) {
 			}
 		} else {
 			// Update the record in the database with the new information
-			$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `end_time`='$end_time' WHERE id = $id";
+			$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `instructions`='$instructions', `end_time`='$end_time' WHERE id = $id";
 			
 			if (mysqli_query($conn, $updateSql)) {
 				echo json_encode(array("statusCode" => 200));
