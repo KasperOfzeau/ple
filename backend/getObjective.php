@@ -1,5 +1,5 @@
 <?php
-include 'database.php';
+include 'config.php';
 
 // checking if data exists
 if ($_POST['id'] != null){
