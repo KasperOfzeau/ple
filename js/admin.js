@@ -24,6 +24,39 @@ $(document).on('click', '#btn-add', function(e) {
 	});
 });
 
+$(document).ready(function() {
+	//Get modal input images 
+	const inputImages = [
+		{
+		  input: document.querySelector('#thumbnail'),
+		  image: document.querySelector('#thumbnail-img')
+		},
+		{
+		  input: document.querySelector('#example-1'),
+		  image: document.querySelector('#example-img-1')
+		},
+		{
+		  input: document.querySelector('#example-2'),
+		  image: document.querySelector('#example-img-2')
+		},
+		{
+		  input: document.querySelector('#example-3'),
+		  image: document.querySelector('#example-img-3')
+		},
+		{
+		  input: document.querySelector('#example-4'),
+		  image: document.querySelector('#example-img-4')
+		}
+	  ];
+	  
+	  inputImages.forEach((item, index) => {
+		item.input.addEventListener('change', (event) => {
+			item.image.src = URL.createObjectURL(event.target.files[0]);
+			item.image.style.display = 'block';
+		});
+	  });
+});
+
 $(document).on('click','.update',function(e) {
 	let id = $(this).attr("data-id");
 	let title = $(this).attr("data-title");

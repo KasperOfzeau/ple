@@ -1,5 +1,5 @@
 <?php
-include '../backend/database.php';
+include '../backend/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,12 +102,35 @@ include '../backend/database.php';
 						</div>
 						<div class="form-group">
 							<label>Thumbnail</label>
+							<img src="" id="thumbnail-img" width="100" height="auto">
 							<input type="file" id="thumbnail" name="thumbnail" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>End time</label>
 							<input type="datetime-local" id="end_time" name="end_time" class="form-control" required>
-						</div>					
+						</div>
+						<div class="form-group example-images"> 
+							<div class="example-1">
+								<label>Example 1</label>
+								<img src="" id="example-img-1" class="example-img" width="100" height="auto">
+								<input type="file" id="example-1" name="example-1" class="form-control" required>
+							</div>	
+							<div class="example-2">
+								<label>Example 2</label>
+								<img src="" id="example-img-2" class="example-img" width="100" height="auto">
+								<input type="file" id="example-2" name="example-2" class="form-control" required>
+							</div>
+							<div class="example-3">
+								<label>Example 3</label>
+								<img src="" id="example-img-3" class="example-img" width="100" height="auto">
+								<input type="file" id="example-3" name="example-3" class="form-control" required>
+							</div>
+							<div class="example-4">
+								<label>Example 4</label>
+								<img src="" id="example-img-4" class="example-img" width="100" height="auto">
+								<input type="file" id="example-4" name="example-4" class="form-control" required>
+							</div>
+						</div>				
 					</div>
 					<div class="modal-footer">
 					    <input type="hidden" value="1" name="type">
@@ -143,7 +166,7 @@ include '../backend/database.php';
 						</div>
 						<div class="form-group">
 							<label>Thumbnail</label>
-							<img src="" id="thumbnail_img_u" width="150" height="auto">
+							<img src="" id="thumbnail-img-u" width="150" height="auto">
 							<input type="file" id="thumbnail_u" name="thumbnail" class="form-control">
 						</div>
 						<div class="form-group">

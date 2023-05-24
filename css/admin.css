@@ -167,3 +167,15 @@ table.table .avatar {
 #thumbnail_img_u {
 	display: block;
 }
+
+.example-images {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.example-img,
+#thumbnail-img {
+	display: none;
+	padding: 12px 0;
+}
