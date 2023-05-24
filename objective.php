@@ -51,8 +51,13 @@
     </div>
 
     <main>
-        <h2>Instructions</h2>
-        <p class="instructions"></p>
+        <div class="objective-container">
+            <div class="instructions-container padding-m">
+                <h2>Instructions</h2>
+                <p class="instructions"></p>
+            </div>
+            <div class="examples padding-m"></div>
+        </div>
     </main>
 </body>
 </html>                                		                            

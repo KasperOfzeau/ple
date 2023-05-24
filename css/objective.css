@@ -3,3 +3,22 @@
     background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 36.22%, rgba(0, 0, 0, 0) 100%), url('');
     color: #fff;
 }
+
+.objective-container {
+    width: 80%;
+    margin: auto;
+}
+
+.examples {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.example_image {
+    max-width: 100%;
+    height: 300px;
+    margin: 5px;
+    border-radius: 25px;
+    object-fit: cover;
+}

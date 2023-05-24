@@ -48,6 +48,22 @@ $( document ).ready(function() {
 
         $('.instructions').html(parsedData.instructions);   
 
+        // Array of image URLs
+        let examples = [
+            parsedData.example_image1,
+            parsedData.example_image2,
+            parsedData.example_image3
+        ];
+
+        // Create and display image elements
+        let container = document.querySelector('.examples');
+        examples.forEach(function(imageUrl) {
+            let img = document.createElement('img');
+            img.src = "/ple/gfx/objectives/examples/" + imageUrl;
+            img.className = "example_image";
+            container.appendChild(img);
+        });
+
         $("#loading-overlay").hide();
     });
 });
