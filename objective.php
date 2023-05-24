@@ -45,7 +45,7 @@
                 <p class="hero-description"></p>
             </div>
             <div class="hero-right">
-                <a href="#" class="button hero-button">Upload my photo</a>
+                <a href="#" class="button hero-button"><i class="fa-solid fa-camera"></i> Upload my photo</a>
             </div>
         </div>
     </div>
