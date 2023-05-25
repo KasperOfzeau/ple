@@ -19,7 +19,7 @@ include 'backend/config.php';
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-left">
-                <a href="#" class="logo">Logo</a>
+                <a href="#" class="logo">Lensspire</a>
             </div>
             <div class="navbar-right">   
                 <a class="navbar-link" href="#">Home</a>
