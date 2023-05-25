@@ -20,7 +20,7 @@
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-left">
-                <a href="#" class="logo">Logo</a>
+                <a href="#" class="logo">Lensspire</a>
             </div>
             <div class="navbar-right">   
                 <a class="navbar-link" href="#">Home</a>
@@ -45,7 +45,13 @@
                 <p class="hero-description"></p>
             </div>
             <div class="hero-right">
-                <a href="#" class="button hero-button"><i class="fa-solid fa-camera"></i> Upload my photo</a>
+                <?php
+                    if(empty($_SESSION['user_id'])){
+                        echo '<a class="button hero-button" href="/ple/login.php"><i class="fa-solid fa-camera"></i> Upload my photo</a>';
+                    } else {
+                        echo '<button id="hero-button" class="button hero-button"><i class="fa-solid fa-camera"></i> Upload my photo</button>';
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -57,6 +63,20 @@
                 <p class="instructions"></p>
             </div>
             <div class="examples padding-m"></div>
+        </div>
+
+        <!-- Modal content -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form id="photo_form">
+                    <input type="file" class="file-input" accept="image/*">
+                    <input type="hidden" class="objective_id">
+                    <input type="hidden" class="user_id" value="<?= $_SESSION['user_id'] ?>">
+                    <button type="button" class="button" id="btn-add">Upload</button>
+                </form>
+            </div>
         </div>
     </main>
 </body>
