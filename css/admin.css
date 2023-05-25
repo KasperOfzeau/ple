@@ -176,6 +176,6 @@ table.table .avatar {
 
 .example-img,
 #thumbnail-img {
-	display: none;
+	display: block;
 	padding: 12px 0;
 }

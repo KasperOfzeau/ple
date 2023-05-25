@@ -63,6 +63,10 @@ include '../backend/config.php';
 								data-description = "<?= $row["description"]; ?>"
 								data-instructions = "<?= $row["instructions"]; ?>"
 								data-thumbnail = "<?= $row["thumbnail"]; ?>"
+								data-example_1 = "<?= $row["example_image1"]; ?>"
+								data-example_2 = "<?= $row["example_image2"]; ?>"
+								data-example_3 = "<?= $row["example_image3"]; ?>"
+								data-example_4 = "<?= $row["example_image4"]; ?>"
 								data-end_time = "<?= date('Y-m-d H:i:s', strtotime($row["end_time"])); ?>"
 								title="Edit">&#xE254;</i>
 							</a>
@@ -172,7 +176,29 @@ include '../backend/config.php';
 						<div class="form-group">
 							<label>End time</label>
 							<input type="datetime-local" id="end_time_u" name="end_time" class="form-control">
-						</div>					
+						</div>
+						<div class="form-group example-images"> 
+							<div class="example-1">
+								<label>Example 1</label>
+								<img src="" id="example-img-1-u" class="example-img" width="100" height="auto">
+								<input type="file" id="example-1_u" name="example-1" class="form-control" required>
+							</div>	
+							<div class="example-2">
+								<label>Example 2</label>
+								<img src="" id="example-img-2-u" class="example-img" width="100" height="auto">
+								<input type="file" id="example-2_u" name="example-2" class="form-control" required>
+							</div>
+							<div class="example-3">
+								<label>Example 3</label>
+								<img src="" id="example-img-3-u" class="example-img" width="100" height="auto">
+								<input type="file" id="example-3_u" name="example-3" class="form-control" required>
+							</div>
+							<div class="example-4">
+								<label>Example 4</label>
+								<img src="" id="example-img-4-u" class="example-img" width="100" height="auto">
+								<input type="file" id="example-4_u" name="example-4" class="form-control" required>
+							</div>
+						</div>			
 					</div>
 					<div class="modal-footer">
 						<input type="hidden" value="2" name="type">

@@ -46,10 +46,27 @@ $(document).ready(function() {
 		{
 		  input: document.querySelector('#example-4'),
 		  image: document.querySelector('#example-img-4')
+		},
+		{
+		  input: document.querySelector('#example-1_u'),
+		  image: document.querySelector('#example-img-1_u')		
+		},
+		{
+		  input: document.querySelector('#example-2_u'),
+		  image: document.querySelector('#example-img-2_u')
+		},
+		{
+		  input: document.querySelector('#example-3_u'),
+		  image: document.querySelector('#example-img-3_u')
+		},
+		{
+		  input: document.querySelector('#example-4_u'),
+		  image: document.querySelector('#example-img-4_u')
 		}
 	  ];
 	  
 	  inputImages.forEach((item, index) => {
+		item.image.style.display = 'none';
 		item.input.addEventListener('change', (event) => {
 			item.image.src = URL.createObjectURL(event.target.files[0]);
 			item.image.style.display = 'block';
@@ -63,13 +80,21 @@ $(document).on('click','.update',function(e) {
 	let description = $(this).attr("data-description");
 	let instructions = $(this).attr("data-instructions");
 	let thumbnail = $(this).attr("data-thumbnail");
+	let example_1 = $(this).attr("data-example_1");
+	let example_2 = $(this).attr("data-example_2");
+	let example_3 = $(this).attr("data-example_3");
+	let example_4 = $(this).attr("data-example_4");
 	let end_time = $(this).attr("data-end_time");
 
 	$('#id_u').val(id);
 	$('#title_u').val(title);
 	$('#description_u').val(description);
 	$('#instructions_u').val(instructions);
-	$('#thumbnail_img_u').attr("src", "../gfx/objectives/thumbnails/" + thumbnail);
+	$('#thumbnail_img-u').attr("src", "../gfx/objectives/thumbnails/" + thumbnail);
+	$('#example-img-1-u').attr("src", "../gfx/objectives/examples/" + example_1);
+	$('#example-img-2-u').attr("src", "../gfx/objectives/examples/" + example_2);
+	$('#example-img-3-u').attr("src", "../gfx/objectives/examples/" + example_3);
+	$('#example-img-4-u').attr("src", "../gfx/objectives/examples/" + example_4);
 	$('#end_time_u').val(end_time);
 });
 

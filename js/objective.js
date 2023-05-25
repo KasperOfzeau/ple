@@ -52,7 +52,8 @@ $( document ).ready(function() {
         let examples = [
             parsedData.example_image1,
             parsedData.example_image2,
-            parsedData.example_image3
+            parsedData.example_image3,
+            parsedData.example_image4
         ];
 
         // Create and display image elements
