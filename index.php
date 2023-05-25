@@ -9,7 +9,7 @@ include 'backend/config.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="https://kit.fontawesome.com/ceca6c7c7a.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
@@ -25,6 +25,15 @@ include 'backend/config.php';
                 <a class="navbar-link" href="#">Home</a>
                 <a class="navbar-link active" href="#">Objectives</a>
                 <a class="navbar-link" href="#">Highlights</a>
+
+                <?php
+                    session_start();
+                    if(empty($_SESSION['user_id'])){
+                        echo '<a class="navbar-link login-link" href="/ple/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>';
+                    } else {
+                        echo '<a class="navbar-link login-link" href="/ple/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>';
+                    }
+                ?>
             </div>
         </div>
     </nav>

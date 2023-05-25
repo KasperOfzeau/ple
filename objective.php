@@ -29,9 +29,9 @@
                 <?php
                     session_start();
                     if(empty($_SESSION['user_id'])){
-                        echo '<a class="navbar-link" href="/ple/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>';
+                        echo '<a class="navbar-link login-link" href="/ple/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>';
                     } else {
-                        echo '<a class="navbar-link" href="/ple/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>';
+                        echo '<a class="navbar-link login-link" href="/ple/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>';
                     }
                 ?>
             </div>

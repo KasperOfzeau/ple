@@ -23,6 +23,10 @@
     text-decoration: none;
 }
 
+.login-link {
+    margin-left: 28px;
+}
+
 nav.navbar a.logo {
     color: #fff;
     text-decoration: none;
