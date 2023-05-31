@@ -30,7 +30,7 @@ include 'backend/config.php';
             <div class="navbar-right">   
                 <a class="navbar-link" href="#">Home</a>
                 <a class="navbar-link active" href="/ple/">Objectives</a>
-                <a class="navbar-link" href="#">Highlights</a>
+                <a class="navbar-link" href="/ple/highlights.php">Highlights</a>
                 <?php
                     session_start();
                     if(empty($_SESSION['user_id'])){
@@ -75,45 +75,53 @@ include 'backend/config.php';
     <main>
         <div class="objective-container">
             <div class="instructions-container padding-m">
-                <h2>Instructions</h2>
+                <h2 class="title">Instructions</h2>
                 <p class="instructions"></p>
             </div>
             <div class="examples padding-m"></div>
-            <div class="community padding-m">
-                <h2>See what other people came up with</h2>
-                <div class="community-container">
-                    <?php
-                        if($_SESSION['user_id']) {
-                            $result = mysqli_query($conn,"SELECT * FROM photos WHERE user_id !=" . $_SESSION['user_id']);
-                        } else {
-                            $result = mysqli_query($conn,"SELECT * FROM photos");
-                        }
-                        $i=1;
-                        while($row = mysqli_fetch_array($result)) {
-                            // Check if the current photo is already favorited by the logged-in user
-                            $isFavorited = false;
-                            if ($_SESSION['user_id']) {
-                                $favoriteCheckQuery = "SELECT * FROM favorites WHERE user_id = " . $_SESSION['user_id'] . " AND photo_id = " . $row['id'];
-                                $favoriteCheckResult = mysqli_query($conn, $favoriteCheckQuery);
-                                if (mysqli_num_rows($favoriteCheckResult) > 0) {
-                                    $isFavorited = true;
-                                }
-                            }
-                            ?>
-                            <div class="community-image">
-                                <img src="gfx/objectives/photos/<?= $row['photo'] ?>" alt="Image 1">
-                                <span class="favorite-button">
-                                    <i class="favorite fas fa-heart <?= $isFavorited ? 'favorited' : '' ?>" 
-                                        data-user_id="<?= $_SESSION["user_id"]; ?>" data-photo_id="<?= $row["id"]; ?>"></i>
-                                </span>
-                            </div>
-                            <?php
-                        }
+            <?php
+                if($_SESSION['user_id']) {
+                    $result = mysqli_query($conn,"SELECT * FROM photos WHERE user_id !=" . $_SESSION['user_id'] . " AND objective_id = " . $objective_id);
+                } else {
+                    $result = mysqli_query($conn,"SELECT * FROM photos WHERE objective_id =" . $objective_id);
+                }
+                $i=1;
+                if (mysqli_num_rows($result) > 0) {
                     ?>
+                    <div class="community padding-m">
+                        <h2 class="title">See what other people came up with</h2>
+                        <div class="community-container">
+                        <?php
+                            while($row = mysqli_fetch_array($result)) {
+                                // Check if the current photo is already favorited by the logged-in user
+                                $isFavorited = false;
+                                if ($_SESSION['user_id']) {
+                                    $favoriteCheckQuery = "SELECT * FROM favorites WHERE user_id = " . $_SESSION['user_id'] . " AND photo_id = " . $row['id'];
+                                    $favoriteCheckResult = mysqli_query($conn, $favoriteCheckQuery);
+                                    if (mysqli_num_rows($favoriteCheckResult) > 0) {
+                                        $isFavorited = true;
+                                    }
+                                }
+                                ?>
+                                <div class="community-image">
+                                    <img src="gfx/objectives/photos/<?= $row['photo'] ?>" alt="Image 1">
+                                    <?php  if(!empty($_SESSION['user_id'])){ ?>
+                                        <span class="favorite-button">
+                                            <i class="favorite fas fa-heart <?= $isFavorited ? 'favorited' : '' ?>" 
+                                                data-user_id="<?= $_SESSION["user_id"]; ?>" data-photo_id="<?= $row["id"]; ?>">
+                                            </i>
+                                        </span>
+                                    <?php } ?>
+                                </div>
+                                <?php
+                            } 
+                            ?>
+                        </div>
+                    <div>
                 </div>
-            <div>
-        </div>
-
+            <?php
+                } 
+            ?>
         <!-- Modal content -->
         <div id="uploadModal" class="modal">
             <!-- Modal content -->
