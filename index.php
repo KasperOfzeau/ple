@@ -24,7 +24,7 @@ include 'backend/config.php';
             <div class="navbar-right">   
                 <a class="navbar-link" href="#">Home</a>
                 <a class="navbar-link active" href="#">Objectives</a>
-                <a class="navbar-link" href="#">Highlights</a>
+                <a class="navbar-link" href="/ple/highlights.php">Highlights</a>
 
                 <?php
                     session_start();
@@ -41,7 +41,7 @@ include 'backend/config.php';
         <div class="hero-content">
             <div class="hero-left">
                 <h1 class="hero-title">Objectives</h1>
-                <p class="hero-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                <p class="hero-description">Unleash your creativity, discover new techniques, and find inspiration to capture the extraordinary. Join our vibrant community on a quest for photographic excellence. Elevate your artistry with objectives on Lenspire.</p>
             </div>
             <div class="hero-right"></div>
         </div>
