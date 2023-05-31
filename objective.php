@@ -1,3 +1,6 @@
+<?php
+include 'backend/config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +15,10 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
 	<link rel="stylesheet" href="css/objective.css">
+    <link rel="stylesheet" href="css/community.css">
 	<link rel="stylesheet" href="css/loader.css">
     <script src="js/objective.js"></script>
+    <script src="js/community.js"></script>
 </head>
 <body>
 	<div id="loading-overlay"><div class="loader"></div></div>
@@ -76,6 +81,36 @@
             <div class="examples padding-m"></div>
             <div class="community padding-m">
                 <h2>See what other people came up with</h2>
+                <div class="community-container">
+                    <?php
+                        if($_SESSION['user_id']) {
+                            $result = mysqli_query($conn,"SELECT * FROM photos WHERE user_id !=" . $_SESSION['user_id']);
+                        } else {
+                            $result = mysqli_query($conn,"SELECT * FROM photos");
+                        }
+                        $i=1;
+                        while($row = mysqli_fetch_array($result)) {
+                            // Check if the current photo is already favorited by the logged-in user
+                            $isFavorited = false;
+                            if ($_SESSION['user_id']) {
+                                $favoriteCheckQuery = "SELECT * FROM favorites WHERE user_id = " . $_SESSION['user_id'] . " AND photo_id = " . $row['id'];
+                                $favoriteCheckResult = mysqli_query($conn, $favoriteCheckQuery);
+                                if (mysqli_num_rows($favoriteCheckResult) > 0) {
+                                    $isFavorited = true;
+                                }
+                            }
+                            ?>
+                            <div class="community-image">
+                                <img src="gfx/objectives/photos/<?= $row['photo'] ?>" alt="Image 1">
+                                <span class="favorite-button">
+                                    <i class="favorite fas fa-heart <?= $isFavorited ? 'favorited' : '' ?>" 
+                                        data-user_id="<?= $_SESSION["user_id"]; ?>" data-photo_id="<?= $row["id"]; ?>"></i>
+                                </span>
+                            </div>
+                            <?php
+                        }
+                    ?>
+                </div>
             <div>
         </div>
 
