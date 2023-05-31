@@ -16,9 +16,13 @@ if(count($_POST) > 0){
 		$example4 = $_FILES['example-4']['name'];
 		$end_time = $_POST['end_time'];
 
-		$sql = "INSERT INTO `objectives`( `title`, `description`, `instructions`, `thumbnail`, `example_image1`, `example_image2`, `example_image3`, `example_image4`, `end_time`) 
-		VALUES ('$title','$description','$instructions','$thumbnail','$example1','$example2','$example3','$example4','$end_time')";
-		if (mysqli_query($conn, $sql)) {
+		$sql = "INSERT INTO `objectives` (`title`, `description`, `instructions`, `thumbnail`, `example_image1`, `example_image2`, `example_image3`, `example_image4`, `end_time`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		$stmt = $conn->prepare($sql);
+		$stmt->bind_param("sssssssss", $title, $description, $instructions, $thumbnail, $example1, $example2, $example3, $example4, $end_time);
+
+		if ($stmt->execute()) {
 
 			$uploadedFiles = [];
 
@@ -107,9 +111,11 @@ if (count($_POST) > 0) {
 								// New thumbnail image file uploaded and saved successfully
 
 								// Update the record in the database with the new information
-								$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `instructions`='$instructions', `thumbnail`='$newThumbnail', `end_time`='$end_time' WHERE id = $id";
-			
-								if (mysqli_query($conn, $updateSql)) {
+								$updateSql = "UPDATE `objectives` SET `title`=?, `description`=?, `instructions`=?, `thumbnail`=?, `end_time`=? WHERE id = ?";
+								$stmt = $conn->prepare($updateSql);
+								$stmt->execute([$title, $description, $instructions, $newThumbnail, $end_time, $id]);
+
+								if ($stmt->rowCount() > 0) {
 									echo json_encode(array("statusCode" => 200));
 								} else {
 									echo json_encode(["statusCode" => 201, "message" => "Failed to update the objectives in the database."]);
@@ -133,9 +139,11 @@ if (count($_POST) > 0) {
 			}
 		} else {
 			// Update the record in the database with the new information
-			$updateSql = "UPDATE `objectives` SET `title`='$title', `description`='$description', `instructions`='$instructions', `end_time`='$end_time' WHERE id = $id";
-			
-			if (mysqli_query($conn, $updateSql)) {
+			$updateSql = "UPDATE `objectives` SET `title`=?, `description`=?, `instructions`=?, `end_time`=? WHERE id = ?";
+			$stmt = $conn->prepare($updateSql);
+			$stmt->bind_param("ssssi", $title, $description, $instructions, $end_time, $id);
+
+			if ($stmt->execute()) {
 				echo json_encode(array("statusCode" => 200));
 			} else {
 				echo json_encode(["statusCode" => 201, "message" => "Failed to update the objectives in the database."]);
