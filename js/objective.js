@@ -71,7 +71,7 @@ $( document ).ready(function() {
     });
 
     // Get the modal
-    let modal = document.getElementById("myModal");
+    let modal = document.getElementById("uploadModal");
 
     // Get the button that opens the modal
     let btn = document.getElementById("hero-button");
@@ -95,4 +95,30 @@ $( document ).ready(function() {
             modal.style.display = "none";
         }
     }
+
+    let host = "http://localhost/ple/";
+    let dataResult;
+
+    $(document).on('click', '#btn-add', function(e) {
+        e.preventDefault();
+        let form = $('#photo_form')[0];
+        console.log(form)
+        let formData = new FormData(form);
+        $.ajax({
+            data: formData,
+            type: "post",
+            url: host + "backend/objectiveUpload.php",
+            contentType: false,
+            processData: false,
+            success: function(dataResult) {
+                dataResult = JSON.parse(dataResult);
+                if (dataResult.statusCode == 200) {
+                    alert('Photo added successfully!');
+                    location.reload();
+                } else if (dataResult.statusCode == 201) {
+                    alert(dataResult);
+                }
+            }
+        });
+    });
 });

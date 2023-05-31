@@ -49,7 +49,18 @@
                     if(empty($_SESSION['user_id'])){
                         echo '<a class="button hero-button" href="/ple/login.php"><i class="fa-solid fa-camera"></i> Upload my photo</a>';
                     } else {
-                        echo '<button id="hero-button" class="button hero-button"><i class="fa-solid fa-camera"></i> Upload my photo</button>';
+                        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+                        $currentURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                        preg_match('/[?&]id=([^&]+)/', $currentURL, $matches); // Match the 'id' parameter
+                        $objective_id = $matches[1]; // Get the value of the 'id' parameter
+                        
+                        if(file_exists("gfx/objectives/photos/" . $objective_id . "_" . $_SESSION['user_id'] . ".jpg")) {
+                            // Photo exists
+                            echo '<button class="button hero-button"><i class="fa-solid fa-check"></i> Photo uploaded</button>';
+                        } else {
+                            // Photo does not exist
+                            echo '<button id="hero-button" class="button hero-button"><i class="fa-solid fa-camera"></i> Upload my photo</button>';
+                        }
                     }
                 ?>
             </div>
@@ -63,17 +74,20 @@
                 <p class="instructions"></p>
             </div>
             <div class="examples padding-m"></div>
+            <div class="community padding-m">
+                <h2>See what other people came up with</h2>
+            <div>
         </div>
 
         <!-- Modal content -->
-        <div id="myModal" class="modal">
+        <div id="uploadModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <form id="photo_form">
-                    <input type="file" class="file-input" accept="image/*">
-                    <input type="hidden" class="objective_id">
-                    <input type="hidden" class="user_id" value="<?= $_SESSION['user_id'] ?>">
+                    <input type="file" id="photo" name="photo" class="file-input" accept="image/*">
+                    <input type="hidden" id="objective_id" name="objective_id" class="objective_id">
+                    <input type="hidden" id="user_id" name="user_id" class="user_id" value="<?= $_SESSION['user_id'] ?>">
                     <button type="button" class="button" id="btn-add">Upload</button>
                 </form>
             </div>
