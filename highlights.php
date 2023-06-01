@@ -15,6 +15,7 @@ include 'backend/config.php';
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
 	<link rel="stylesheet" href="css/highlights.css">
+    <script src="js/highlights.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -67,7 +68,16 @@ include 'backend/config.php';
                             while ($row = $result->fetch_assoc()) {
                         ?>
                             <div class="highlight">
-                                <img class="highlight-img" src="gfx/objectives/photos/<?= $row["photo"]; ?>" alt="photo by: <?= $row["first_name"] . " " . $row['last_name']; ?>">
+                                <img 
+                                    class="highlight-img" 
+                                    src="gfx/objectives/photos/<?= $row["photo"]; ?>" 
+                                    alt="photo by: <?= $row["first_name"] . " " . $row['last_name']; ?>"
+                                    data-id="<?= $row['id']; ?>"
+                                    data-photo="<?= $row["photo"]; ?>"
+                                    data-name="<?= $row["first_name"] . " " . $row['last_name']; ?>"
+                                    data-title="<?= $row["title"]; ?>"
+                                    data-favorites="<?= $row["favorites_count"]; ?>"
+                                >
                                 <div class="highlight-body">
                                     <a href="/ple/objective.php?id=<?= $row['id']; ?>" class="highlight-link">
                                         <h3 class="highlight-title"><?= $row['title'];?></h3>
@@ -83,6 +93,21 @@ include 'backend/config.php';
                         }
                     ?>
                 </div> 
+            </div>
+        </div>
+        <div id="highlight-modal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <img id="modal-img">
+                <div id="caption">
+                    <div class="caption-container">
+                        <a href="" class="modal-link">
+                            <h3 id="modal-title" class="title"></h3>
+                        </a>
+                        <p id="modal-name"></p>
+                        <p id="modal-favorites-count"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
