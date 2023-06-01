@@ -1,5 +1,10 @@
 <?php
 include 'backend/config.php';
+
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+$currentURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+preg_match('/[?&]id=([^&]+)/', $currentURL, $matches); // Match the 'id' parameter
+$objective_id = $matches[1]; // Get the value of the 'id' parameter
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,12 +58,7 @@ include 'backend/config.php';
                 <?php
                     if(empty($_SESSION['user_id'])){
                         echo '<a class="button hero-button" href="/ple/login.php"><i class="fa-solid fa-camera"></i> Upload my photo</a>';
-                    } else {
-                        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
-                        $currentURL = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-                        preg_match('/[?&]id=([^&]+)/', $currentURL, $matches); // Match the 'id' parameter
-                        $objective_id = $matches[1]; // Get the value of the 'id' parameter
-                        
+                    } else {        
                         if(file_exists("gfx/objectives/photos/" . $objective_id . "_" . $_SESSION['user_id'] . ".jpg")) {
                             // Photo exists
                             echo '<button class="button hero-button"><i class="fa-solid fa-check"></i> Photo uploaded</button>';
@@ -80,7 +80,7 @@ include 'backend/config.php';
             </div>
             <div class="examples padding-m"></div>
             <?php
-                if($_SESSION['user_id']) {
+                if(!empty($_SESSION['user_id'])) {
                     $result = mysqli_query($conn,"SELECT * FROM photos WHERE user_id !=" . $_SESSION['user_id'] . " AND objective_id = " . $objective_id);
                 } else {
                     $result = mysqli_query($conn,"SELECT * FROM photos WHERE objective_id =" . $objective_id);
