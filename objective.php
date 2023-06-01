@@ -30,11 +30,11 @@ $objective_id = $matches[1]; // Get the value of the 'id' parameter
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-left">
-                <a href="#" class="logo">Lensspire</a>
+                <a href="/ple/" class="logo">Lensspire</a>
             </div>
             <div class="navbar-right">   
-                <a class="navbar-link" href="#">Home</a>
-                <a class="navbar-link active" href="/ple/">Objectives</a>
+                <a class="navbar-link" href="/ple/">Home</a>
+                <a class="navbar-link active" href="/ple/objectives.php">Objectives</a>
                 <a class="navbar-link" href="/ple/highlights.php">Highlights</a>
                 <?php
                     session_start();
@@ -95,7 +95,7 @@ $objective_id = $matches[1]; // Get the value of the 'id' parameter
                             while($row = mysqli_fetch_array($result)) {
                                 // Check if the current photo is already favorited by the logged-in user
                                 $isFavorited = false;
-                                if ($_SESSION['user_id']) {
+                                if (!empty($_SESSION['user_id'])) {
                                     $favoriteCheckQuery = "SELECT * FROM favorites WHERE user_id = " . $_SESSION['user_id'] . " AND photo_id = " . $row['id'];
                                     $favoriteCheckResult = mysqli_query($conn, $favoriteCheckQuery);
                                     if (mysqli_num_rows($favoriteCheckResult) > 0) {
@@ -122,6 +122,7 @@ $objective_id = $matches[1]; // Get the value of the 'id' parameter
             <?php
                 } 
             ?>
+        </div>
         <!-- Modal content -->
         <div id="uploadModal" class="modal">
             <!-- Modal content -->

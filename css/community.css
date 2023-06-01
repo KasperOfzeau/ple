@@ -1,7 +1,23 @@
-.community-container  {
+.home-community {
+  background-color: #222;
+}
+
+.home-community-container,
+.home-community > .title {
+  width: 80%;
+  margin: auto;
+}
+
+.home-community > .title {
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.community-container,
+.home-community-container  {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .community-image {

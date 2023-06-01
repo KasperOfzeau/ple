@@ -21,11 +21,11 @@ include 'backend/config.php';
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-left">
-                <a href="#" class="logo">Lensspire</a>
+                <a href="/ple/" class="logo">Lensspire</a>
             </div>
             <div class="navbar-right">   
-                <a class="navbar-link" href="#">Home</a>
-                <a class="navbar-link" href="/ple/">Objectives</a>
+                <a class="navbar-link" href="/ple/">Home</a>
+                <a class="navbar-link" href="/ple/objectives.php">Objectives</a>
                 <a class="navbar-link active" href="/ple/highlights.php">Highlights</a>
                 <?php
                     session_start();
@@ -54,7 +54,7 @@ include 'backend/config.php';
                 <div class="highlights-wrapper">
                     <?php 
                         // Prepare and execute the SQL query to retrieve the photos ordered by the most favorites
-                        $sql = "SELECT photos.photo, COUNT(favorites.photo_id) AS favorites_count, users.first_name, users.last_name, objectives.title, objectives.id
+                        $sql = "SELECT photos.photo, favorites.photo_id, COUNT(favorites.photo_id) AS favorites_count, users.first_name, users.last_name, objectives.title, objectives.id
                         FROM photos
                         LEFT JOIN favorites ON photos.id = favorites.photo_id
                         LEFT JOIN users ON photos.user_id = users.user_id
@@ -67,7 +67,7 @@ include 'backend/config.php';
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                         ?>
-                            <div class="highlight">
+                            <div class="highlight" id="<?= $row['photo_id'] ?>">
                                 <img 
                                     class="highlight-img" 
                                     src="gfx/objectives/photos/<?= $row["photo"]; ?>" 
