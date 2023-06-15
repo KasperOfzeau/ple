@@ -57,14 +57,9 @@ include 'backend/config.php';
               SELECT photo_id, COUNT(*) AS favorites_count
               FROM favorites
               GROUP BY photo_id
-              HAVING COUNT(*) = (
-                SELECT COUNT(*) AS max_favorites
-                FROM favorites
-                GROUP BY photo_id
-                ORDER BY max_favorites DESC
-                LIMIT 1
-              )
-            ) f ON p.id = f.photo_id;");
+            ) f ON p.id = f.photo_id
+            ORDER BY f.favorites_count DESC
+            LIMIT 6");
             $i=1;
             if (mysqli_num_rows($result) > 0) {
                 ?>
@@ -73,25 +68,11 @@ include 'backend/config.php';
                     <div class="home-community-container">
                     <?php
                         while($row = mysqli_fetch_array($result)) {
-                            // Check if the current photo is already favorited by the logged-in user
-                            $isFavorited = false;
-                            if (!empty($_SESSION['user_id'])) {
-                                $favoriteCheckQuery = "SELECT * FROM favorites WHERE user_id = " . $_SESSION['user_id'] . " AND photo_id = " . $row['id'];
-                                $favoriteCheckResult = mysqli_query($conn, $favoriteCheckQuery);
-                                if (mysqli_num_rows($favoriteCheckResult) > 0) {
-                                    $isFavorited = true;
-                                }
-                            }
-                            ?>
+                    ?>
                             <div class="community-image">
                                 <a href="/ple/highlights.php#<?= $row['id']?>">
                                     <img src="gfx/objectives/photos/<?= $row['photo'] ?>" alt="Image 1">
                                     <?php  if(!empty($_SESSION['user_id'])){ ?>
-                                        <span class="favorite-button">
-                                            <i class="favorite fas fa-heart <?= $isFavorited ? 'favorited' : '' ?>" 
-                                                data-user_id="<?= $_SESSION["user_id"]; ?>" data-photo_id="<?= $row["id"]; ?>">
-                                            </i>
-                                        </span>
                                     <?php } ?>
                                 </a>
                             </div>
