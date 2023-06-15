@@ -43,10 +43,17 @@
 }
 
 .favorited {
-  color: red;
+    color: red;
 }
 
 .favorite-button:hover {
     color: red;
     cursor: pointer;
+}
+
+@media (max-width: 785px) {
+  .community-container,
+  .home-community-container  {
+      gap: 40px;
   }
+}

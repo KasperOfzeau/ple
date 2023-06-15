@@ -7,6 +7,9 @@
     background-size: cover;
     background-position: center;
     color: #000;
+    padding-top: 82px;
+    overflow: hidden;
+    width: 100%;
 }
 
 .hero-content {
@@ -47,4 +50,19 @@
 
 .hero-button {
     width: fit-content;
+}
+
+@media (max-width: 785px) {
+    .hero-left {
+        flex: 0 0 80%;
+    }
+
+    .hero-right {
+        justify-content: left;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        gap: 20px;
+    }
 }

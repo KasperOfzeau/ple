@@ -27,26 +27,31 @@ $objective_id = $matches[1]; // Get the value of the 'id' parameter
 </head>
 <body>
 	<div id="loading-overlay"><div class="loader"></div></div>
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-left">
-                <a href="/ple/" class="logo">Lensspire</a>
-            </div>
-            <div class="navbar-right">   
-                <a class="navbar-link" href="/ple/">Home</a>
-                <a class="navbar-link active" href="/ple/objectives.php">Objectives</a>
-                <a class="navbar-link" href="/ple/highlights.php">Highlights</a>
-                <?php
-                    session_start();
-                    if(empty($_SESSION['user_id'])){
-                        echo '<a class="navbar-link login-link" href="/ple/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>';
-                    } else {
-                        echo '<a class="navbar-link login-link" href="/ple/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>';
-                    }
-                ?>
-            </div>
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="/ple/" class="logo">Lensspire</a>
+            <!-- Hamburger icon -->
+            <input class="side-menu" type="checkbox" id="side-menu"/>
+            <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+            <!-- Menu -->
+            <nav class="nav">
+                <ul class="menu">
+                    <li><a href="/ple/">Home</a></li>
+                    <li><a href="/ple/objectives.php">Objectives</a> </li>
+                    <li><a href="/ple/highlights.php">Highlights</a></li>
+                    <?php
+                        session_start();
+                        if(empty($_SESSION['user_id'])){
+                            echo '<li><a class="login-link" href="/ple/login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>';
+                        } else {
+                            echo '<li><a class="login-link" href="/ple/logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>';
+                        }
+                    ?>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 	<div class="hero">
         <div class="hero-content">
             <div class="hero-left">
